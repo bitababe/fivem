@@ -490,17 +490,14 @@
 
                 if (data.success) {
                     showMessage('✅ ' + data.message, 'success');
-                    document.getElementById('loginForm').reset();
                     
+                    // Save user data to localStorage
+                    localStorage.setItem('fivem_user', JSON.stringify(data.user));
+                    
+                    // Redirect to dashboard after 1 second
                     setTimeout(() => {
-                        const user = data.user;
-                        alert(`🎮 Chào mừng ${user.username}!\n\n` +
-                              `Email: ${user.email}\n` +
-                              `Discord: ${user.discord || 'Chưa liên kết'}\n` +
-                              `Whitelist: ${user.whitelisted ? 'Đã kích hoạt' : 'Chưa kích hoạt'}\n` +
-                              `Vai trò: ${user.role}\n\n` +
-                              `Hãy vào server và bắt đầu chơi!`);
-                    }, 500);
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
                 } else {
                     showMessage('❌ ' + data.message, 'error');
                 }
@@ -513,5 +510,4 @@
         }
     </script>
 </body>
-
 </html>
