@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiveM Server - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header/Navbar */
+        .navbar {
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.95), rgba(48, 43, 99, 0.95));
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+        }
+
+        .nav-menu a.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(15, 12, 41, 0.8), rgba(48, 43, 99, 0.8)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23667eea" opacity="0.05" width="1200" height="600"/></svg>');
+            padding: 80px 30px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.8), rgba(30, 30, 45, 0.8));
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #9ca3af;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Character Section */
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.2);
+            border: 2px solid #667eea;
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .character-card {
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.9), rgba(30, 30, 45, 0.9));
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .character-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+        }
+
+        .character-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .character-info {
+            padding: 25px;
+        }
+
+        .character-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .character-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .character-detail {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .character-detail strong {
+            color: #fff;
+        }
+
+        .character-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        /* Server Info */
+        .server-info-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(20, 20, 35, 0.8), rgba(30, 30, 45, 0.8));
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-card h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #9ca3af;
+        }
+
+        .info-value {
+            font-weight: 600;
+        }
+
+        .status-online {
+            color: #10b981;
+        }
+
+        .status-offline {
+            color: #ef4444;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-btn:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        .action-icon {
+            font-size: 32px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .server-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🎮</span>
+                <span>FiveM Server</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#">Nhân vật</a></li>
+                <li><a href="#">Whitelist</a></li>
+                <li><a href="#">Cộng đồng</a></li>
+                <li><a href="#">Hỗ trợ</a></li>
+            </ul>
+            <div class="user-info">
+                <div class="user-details">
+                    <span class="user-name" id="userName">PlayerName</span>
+                    <span class="user-role">Thành viên</span>
+                </div>
+                <div class="user-avatar" id="userAvatar">P</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Chào mừng trở lại! 👋</h1>
+        <p>Quản lý nhân vật, kiểm tra tiến độ và khám phá những tính năng mới của server</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-value" id="playTime">0h</div>
+                <div class="stat-label">Giờ chơi</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👤</div>
+                <div class="stat-value" id="characterCount">0</div>
+                <div class="stat-label">Nhân vật</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value" id="totalMoney">$0</div>
+                <div class="stat-label">Tổng tài sản</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value" id="level">1</div>
+                <div class="stat-label">Cấp độ</div>
+            </div>
+        </div>
+
+        <!-- Characters Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Nhân vật của bạn</h2>
+                <button class="btn" onclick="createCharacter()">+ Tạo nhân vật mới</button>
+            </div>
+            <div class="character-grid" id="characterList">
+                <!-- Characters will be loaded here -->
+                <div class="character-card">
+                    <div class="character-image">
+                        👨
+                        <span class="character-badge">Active</span>
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">John Smith</h3>
+                        <div class="character-details">
+                            <div class="character-detail">
+                                <span>Nghề nghiệp:</span>
+                                <strong>Cảnh sát</strong>
+                            </div>
+                            <div class="character-detail">
+                                <span>Tiền mặt:</span>
+                                <strong>$45,230</strong>
+                            </div>
+                            <div class="character-detail">
+                                <span>Ngân hàng:</span>
+                                <strong>$125,500</strong>
+                            </div>
+                            <div class="character-detail">
+                                <span>Cấp độ:</span>
+                                <strong>25</strong>
+                            </div>
+                        </div>
+                        <div class="character-actions">
+                            <button class="btn btn-small">Chơi</button>
+                            <button class="btn btn-small btn-secondary">Chỉnh sửa</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-image">
+                        👩
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">Maria Garcia</h3>
+                        <div class="character-details">
+                            <div class="character-detail">
+                                <span>Nghề nghiệp:</span>
+                                <strong>Bác sĩ</strong>
+                            </div>
+                            <div class="character-detail">
+                                <span>Tiền mặt:</span>
+                                <strong>$23,100</strong>
+                            </div>
+                            <div class="character-detail">
+                                <span>Ngân hàng:</span>
+                                <strong>$89,400</strong>
+                            </div>
+                            <div class="character-detail">
+                                <span>Cấp độ:</span>
+                                <strong>18</strong>
+                            </div>
+                        </div>
+                        <div class="character-actions">
+                            <button class="btn btn-small">Chơi</button>
+                            <button class="btn btn-small btn-secondary">Chỉnh sửa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Server Info & Quick Actions -->
+        <div class="server-info-grid">
+            <div class="info-card">
+                <h3>📊 Thông tin Server</h3>
+                <div class="info-item">
+                    <span class="info-label">Trạng thái:</span>
+                    <span class="info-value status-online">● Online</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Người chơi:</span>
+                    <span class="info-value">64/128</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Whitelist:</span>
+                    <span class="info-value status-online">✓ Đã kích hoạt</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Discord:</span>
+                    <span class="info-value">Đã liên kết</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">IP Server:</span>
+                    <span class="info-value">connect play.server.com</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>⚡ Hành động nhanh</h3>
+                <div class="quick-actions">
+                    <a href="#" class="action-btn">
+                        <span class="action-icon">📋</span>
+                        <span>Quy tắc</span>
+                    </a>
+                    <a href="#" class="action-btn">
+                        <span class="action-icon">🎫</span>
+                        <span>Ticket</span>
+                    </a>
+                    <a href="#" class="action-btn">
+                        <span class="action-icon">💬</span>
+                        <span>Discord</span>
+                    </a>
+                    <a href="#" class="action-btn">
+                        <span class="action-icon">🚪</span>
+                        <span>Đăng xuất</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load user data from localStorage or API
+        function loadUserData() {
+            const userData = JSON.parse(localStorage.getItem('fivem_user') || '{}');
+            
+            if (userData.username) {
+                document.getElementById('userName').textContent = userData.username;
+                document.getElementById('userAvatar').textContent = userData.username[0].toUpperCase();
+                
+                // Simulate stats
+                document.getElementById('playTime').textContent = '127h';
+                document.getElementById('characterCount').textContent = '2';
+                document.getElementById('totalMoney').textContent = '$283,230';
+                document.getElementById('level').textContent = '25';
+            } else {
+                // Redirect to login if no user data
+                window.location.href = 'index.html';
+            }
+        }
+
+        function createCharacter() {
+            alert('Tính năng tạo nhân vật mới!\n\nBạn có thể tích hợp với hệ thống tạo nhân vật của FiveM server.');
+        }
+
+        // Load data when page loads
+        loadUserData();
+    </script>
+</body>
+</html>
