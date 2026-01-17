@@ -11,134 +11,361 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg0: #070a18;
+            --text0: #ffffff;
+            --muted: #9ca3af;
+            --accent: #00e5ff;
+            --accent2: #ff2d7d;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+            --radius: 16px;
+        }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: #0a0e27;
-            color: #fff;
+            background: radial-gradient(1200px 600px at 10% 0%, rgba(0, 255, 255, 0.10), transparent 60%),
+                        radial-gradient(900px 500px at 90% 10%, rgba(255, 0, 128, 0.08), transparent 60%),
+                        linear-gradient(180deg, #070a18, #070a18);
+            color: #e7e7ee;
             overflow-x: hidden;
         }
 
-        /* Header/Navbar */
-        .navbar {
-            background: linear-gradient(135deg, rgba(15, 12, 41, 0.95), rgba(48, 43, 99, 0.95));
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
+        a { color: inherit; }
+
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+        }
+
+        .sidebar {
             position: sticky;
             top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+            height: 100vh;
+            padding: 22px 18px;
+            background: linear-gradient(180deg, rgba(9, 12, 27, 0.9), rgba(7, 10, 24, 0.75));
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
         }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
+        .brand {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
+            gap: 12px;
+            padding: 12px 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.10), rgba(255, 45, 125, 0.06));
         }
 
-        .logo {
+        .brand-left {
             display: flex;
             align-items: center;
-            font-size: 24px;
-            font-weight: 700;
-            gap: 10px;
+            gap: 12px;
+            min-width: 0;
         }
 
-        .logo-icon {
-            font-size: 32px;
+        .brand-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: radial-gradient(18px 18px at 30% 30%, rgba(0, 229, 255, 0.55), rgba(0, 229, 255, 0.08)),
+                        radial-gradient(18px 18px at 70% 70%, rgba(255, 45, 125, 0.45), rgba(255, 45, 125, 0.08));
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.08);
+            font-size: 18px;
         }
 
-        .nav-menu {
+        .brand-title {
             display: flex;
-            gap: 30px;
-            list-style: none;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
         }
 
-        .nav-menu a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            padding: 8px 16px;
-            border-radius: 8px;
+        .brand-title strong {
+            font-size: 14px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--text0);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .nav-menu a:hover {
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
+        .brand-title span {
+            font-size: 12px;
+            color: var(--muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .nav-menu a.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .burger {
+            display: none;
+            appearance: none;
+            border: 0;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text0);
+            border-radius: 12px;
+            padding: 10px 12px;
+            cursor: pointer;
         }
 
-        .user-info {
+        .sidebar-user {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .sidebar-user-row {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .user-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .user-details {
-            display: flex;
-            flex-direction: column;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            font-weight: 800;
         }
 
         .user-name {
-            font-weight: 600;
+            font-weight: 700;
+            color: var(--text0);
         }
 
         .user-role {
             font-size: 12px;
-            color: #9ca3af;
+            color: var(--muted);
         }
 
-        /* Hero Section */
+        .nav-title {
+            margin-top: 18px;
+            padding: 10px 10px 8px;
+            font-size: 11px;
+            color: rgba(231, 231, 238, 0.60);
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 12px;
+            border-radius: 14px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.02);
+            transition: transform 0.25s, background 0.25s, border-color 0.25s;
+        }
+
+        .nav a:hover {
+            transform: translateY(-1px);
+            background: rgba(0, 229, 255, 0.08);
+            border-color: rgba(0, 229, 255, 0.25);
+        }
+
+        .nav a.active {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.14), rgba(255, 45, 125, 0.10));
+            border-color: rgba(0, 229, 255, 0.30);
+            box-shadow: 0 16px 40px rgba(0, 229, 255, 0.10);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .nav-ico {
+            width: 34px;
+            height: 34px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            flex: 0 0 auto;
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .nav-text strong {
+            font-size: 14px;
+            color: var(--text0);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-text span {
+            font-size: 12px;
+            color: rgba(156, 163, 175, 0.85);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .pill {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(231, 231, 238, 0.85);
+        }
+
+        .main {
+            min-width: 0;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 18px 26px;
+            background: linear-gradient(135deg, rgba(9, 12, 27, 0.78), rgba(7, 10, 24, 0.62));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        .topbar-row {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .topbar-title {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .topbar-title h1 {
+            font-size: 18px;
+            color: var(--text0);
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .topbar-title p {
+            font-size: 12px;
+            color: rgba(156, 163, 175, 0.9);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(231, 231, 238, 0.92);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.25s, border-color 0.25s, background 0.25s;
+        }
+
+        .chip:hover {
+            transform: translateY(-1px);
+            border-color: rgba(0, 229, 255, 0.35);
+            background: rgba(0, 229, 255, 0.06);
+        }
+
         .hero {
-            background: linear-gradient(135deg, rgba(15, 12, 41, 0.8), rgba(48, 43, 99, 0.8)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23667eea" opacity="0.05" width="1200" height="600"/></svg>');
-            padding: 80px 30px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.10), rgba(255, 45, 125, 0.08)),
+                        linear-gradient(135deg, rgba(9, 12, 27, 0.85), rgba(7, 10, 24, 0.70));
+            padding: 28px 26px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .hero h1 {
-            font-size: 48px;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .hero p {
-            font-size: 18px;
-            color: #9ca3af;
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 14px;
+            color: rgba(156, 163, 175, 0.95);
+            max-width: 860px;
+            margin: 0;
         }
 
-        /* Main Content */
+        .hero-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 30px;
+            padding: 26px 26px 46px;
         }
 
-        /* Stats Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -147,7 +374,7 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, rgba(20, 20, 35, 0.8), rgba(30, 30, 45, 0.8));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
             border-radius: 16px;
             padding: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -163,13 +390,13 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(102, 126, 234, 0.5);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            border-color: rgba(0, 229, 255, 0.28);
+            box-shadow: 0 18px 50px rgba(0, 229, 255, 0.10);
         }
 
         .stat-icon {
@@ -181,7 +408,7 @@
             font-size: 36px;
             font-weight: 700;
             margin-bottom: 5px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -193,7 +420,6 @@
             letter-spacing: 1px;
         }
 
-        /* Character Section */
         .section {
             margin-bottom: 50px;
         }
@@ -212,7 +438,7 @@
 
         .btn {
             padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             color: white;
             border: none;
             border-radius: 10px;
@@ -225,12 +451,17 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 18px 45px rgba(0, 229, 255, 0.15);
         }
 
         .btn-secondary {
-            background: rgba(102, 126, 234, 0.2);
-            border: 2px solid #667eea;
+            background: rgba(0, 229, 255, 0.08);
+            border: 2px solid rgba(0, 229, 255, 0.35);
+        }
+
+        .ghost {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.10);
         }
 
         .character-grid {
@@ -240,7 +471,7 @@
         }
 
         .character-card {
-            background: linear-gradient(135deg, rgba(20, 20, 35, 0.9), rgba(30, 30, 45, 0.9));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -255,7 +486,9 @@
         .character-image {
             width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: radial-gradient(260px 140px at 20% 30%, rgba(0, 229, 255, 0.40), rgba(0, 229, 255, 0.10)),
+                        radial-gradient(260px 140px at 80% 80%, rgba(255, 45, 125, 0.35), rgba(255, 45, 125, 0.08)),
+                        linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -313,7 +546,6 @@
             flex: 1;
         }
 
-        /* Server Info */
         .server-info-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -321,7 +553,7 @@
         }
 
         .info-card {
-            background: linear-gradient(135deg, rgba(20, 20, 35, 0.8), rgba(30, 30, 45, 0.8));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
             border-radius: 16px;
             padding: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -357,11 +589,6 @@
             color: #10b981;
         }
 
-        .status-offline {
-            color: #ef4444;
-        }
-
-        /* Quick Actions */
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -370,8 +597,8 @@
 
         .action-btn {
             padding: 20px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 2px solid rgba(102, 126, 234, 0.3);
+            background: rgba(0, 229, 255, 0.05);
+            border: 2px solid rgba(0, 229, 255, 0.20);
             border-radius: 12px;
             text-align: center;
             cursor: pointer;
@@ -385,8 +612,8 @@
         }
 
         .action-btn:hover {
-            background: rgba(102, 126, 234, 0.2);
-            border-color: #667eea;
+            background: rgba(0, 229, 255, 0.10);
+            border-color: rgba(0, 229, 255, 0.35);
             transform: translateY(-3px);
         }
 
@@ -394,14 +621,44 @@
             font-size: 32px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
+            .app {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 88vw;
+                max-width: 340px;
+                transform: translateX(-110%);
+                transition: transform 0.25s;
+                z-index: 2000;
+            }
+
+            body.sidebar-open .sidebar {
+                transform: translateX(0);
+            }
+
+            .burger {
+                display: inline-flex;
+            }
+
+            .topbar {
+                padding: 14px 14px;
+            }
+
+            .container {
+                padding: 18px 14px 40px;
+            }
+
+            .hero {
+                padding: 18px 14px;
             }
 
             .hero h1 {
-                font-size: 32px;
+                font-size: 22px;
             }
 
             .server-info-grid {
@@ -415,210 +672,283 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">🎮</span>
-                <span>FiveM Server</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#" class="active">Dashboard</a></li>
-                <li><a href="#">Nhân vật</a></li>
-                <li><a href="#">Whitelist</a></li>
-                <li><a href="#">Cộng đồng</a></li>
-                <li><a href="#">Hỗ trợ</a></li>
-            </ul>
-            <div class="user-info">
-                <div class="user-details">
-                    <span class="user-name" id="userName">PlayerName</span>
-                    <span class="user-role">Thành viên</span>
-                </div>
-                <div class="user-avatar" id="userAvatar">P</div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Chào mừng trở lại! 👋</h1>
-        <p>Quản lý nhân vật, kiểm tra tiến độ và khám phá những tính năng mới của server</p>
-    </section>
-
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">⏱️</div>
-                <div class="stat-value" id="playTime">0h</div>
-                <div class="stat-label">Giờ chơi</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">👤</div>
-                <div class="stat-value" id="characterCount">0</div>
-                <div class="stat-label">Nhân vật</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">💰</div>
-                <div class="stat-value" id="totalMoney">$0</div>
-                <div class="stat-label">Tổng tài sản</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">⭐</div>
-                <div class="stat-value" id="level">1</div>
-                <div class="stat-label">Cấp độ</div>
-            </div>
-        </div>
-
-        <!-- Characters Section -->
-        <section class="section">
-            <div class="section-header">
-                <h2 class="section-title">Nhân vật của bạn</h2>
-                <button class="btn" onclick="createCharacter()">+ Tạo nhân vật mới</button>
-            </div>
-            <div class="character-grid" id="characterList">
-                <!-- Characters will be loaded here -->
-                <div class="character-card">
-                    <div class="character-image">
-                        👨
-                        <span class="character-badge">Active</span>
-                    </div>
-                    <div class="character-info">
-                        <h3 class="character-name">John Smith</h3>
-                        <div class="character-details">
-                            <div class="character-detail">
-                                <span>Nghề nghiệp:</span>
-                                <strong>Cảnh sát</strong>
-                            </div>
-                            <div class="character-detail">
-                                <span>Tiền mặt:</span>
-                                <strong>$45,230</strong>
-                            </div>
-                            <div class="character-detail">
-                                <span>Ngân hàng:</span>
-                                <strong>$125,500</strong>
-                            </div>
-                            <div class="character-detail">
-                                <span>Cấp độ:</span>
-                                <strong>25</strong>
-                            </div>
-                        </div>
-                        <div class="character-actions">
-                            <button class="btn btn-small">Chơi</button>
-                            <button class="btn btn-small btn-secondary">Chỉnh sửa</button>
-                        </div>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-left">
+                    <div class="brand-mark">R</div>
+                    <div class="brand-title">
+                        <strong>RAGE:MP PANEL</strong>
+                        <span>FiveM Server Dashboard</span>
                     </div>
                 </div>
+                <button class="burger" type="button" onclick="toggleSidebar()">☰</button>
+            </div>
 
-                <div class="character-card">
-                    <div class="character-image">
-                        👩
-                    </div>
-                    <div class="character-info">
-                        <h3 class="character-name">Maria Garcia</h3>
-                        <div class="character-details">
-                            <div class="character-detail">
-                                <span>Nghề nghiệp:</span>
-                                <strong>Bác sĩ</strong>
-                            </div>
-                            <div class="character-detail">
-                                <span>Tiền mặt:</span>
-                                <strong>$23,100</strong>
-                            </div>
-                            <div class="character-detail">
-                                <span>Ngân hàng:</span>
-                                <strong>$89,400</strong>
-                            </div>
-                            <div class="character-detail">
-                                <span>Cấp độ:</span>
-                                <strong>18</strong>
-                            </div>
-                        </div>
-                        <div class="character-actions">
-                            <button class="btn btn-small">Chơi</button>
-                            <button class="btn btn-small btn-secondary">Chỉnh sửa</button>
-                        </div>
+            <div class="sidebar-user">
+                <div class="sidebar-user-row">
+                    <div class="user-avatar" id="userAvatar">P</div>
+                    <div class="user-details">
+                        <span class="user-name" id="userName">PlayerName</span>
+                        <span class="user-role">Thành viên</span>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Server Info & Quick Actions -->
-        <div class="server-info-grid">
-            <div class="info-card">
-                <h3>📊 Thông tin Server</h3>
-                <div class="info-item">
-                    <span class="info-label">Trạng thái:</span>
-                    <span class="info-value status-online">● Online</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Người chơi:</span>
-                    <span class="info-value">64/128</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Whitelist:</span>
-                    <span class="info-value status-online">✓ Đã kích hoạt</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Discord:</span>
-                    <span class="info-value">Đã liên kết</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">IP Server:</span>
-                    <span class="info-value">connect play.server.com</span>
-                </div>
-            </div>
+            <div class="nav-title">Điều hướng</div>
+            <nav class="nav" id="sideNav">
+                <a href="#" class="active" data-section="dashboard" onclick="navigateTo('dashboard'); return false;">
+                    <div class="nav-left">
+                        <div class="nav-ico">📊</div>
+                        <div class="nav-text">
+                            <strong>Dashboard</strong>
+                            <span>Tổng quan tài khoản</span>
+                        </div>
+                    </div>
+                    <span class="pill">Live</span>
+                </a>
+                <a href="#" data-section="characters" onclick="navigateTo('characters'); return false;">
+                    <div class="nav-left">
+                        <div class="nav-ico">👤</div>
+                        <div class="nav-text">
+                            <strong>Nhân vật</strong>
+                            <span>Quản lý nhân vật</span>
+                        </div>
+                    </div>
+                    <span class="pill" id="navCharacterCount">0</span>
+                </a>
+                <a href="#" data-section="community" onclick="navigateTo('community'); return false;">
+                    <div class="nav-left">
+                        <div class="nav-ico">🌐</div>
+                        <div class="nav-text">
+                            <strong>Cộng đồng</strong>
+                            <span>Nhân vật cộng đồng</span>
+                        </div>
+                    </div>
+                    <span class="pill">NEW</span>
+                </a>
+                <a href="#" data-section="support" onclick="navigateTo('support'); return false;">
+                    <div class="nav-left">
+                        <div class="nav-ico">🎧</div>
+                        <div class="nav-text">
+                            <strong>Hỗ trợ</strong>
+                            <span>Ticket / Discord</span>
+                        </div>
+                    </div>
+                    <span class="pill">24/7</span>
+                </a>
+                <a href="#" onclick="logout(); return false;">
+                    <div class="nav-left">
+                        <div class="nav-ico">🚪</div>
+                        <div class="nav-text">
+                            <strong>Đăng xuất</strong>
+                            <span>Thoát tài khoản</span>
+                        </div>
+                    </div>
+                    <span class="pill">↩</span>
+                </a>
+            </nav>
+        </aside>
 
-            <div class="info-card">
-                <h3>⚡ Hành động nhanh</h3>
-                <div class="quick-actions">
-                    <a href="#" class="action-btn">
-                        <span class="action-icon">📋</span>
-                        <span>Quy tắc</span>
-                    </a>
-                    <a href="#" class="action-btn">
-                        <span class="action-icon">🎫</span>
-                        <span>Ticket</span>
-                    </a>
-                    <a href="#" class="action-btn">
-                        <span class="action-icon">💬</span>
-                        <span>Discord</span>
-                    </a>
-                    <a href="#" class="action-btn">
-                        <span class="action-icon">🚪</span>
-                        <span>Đăng xuất</span>
-                    </a>
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-row">
+                    <div class="topbar-left">
+                        <button class="burger" type="button" onclick="toggleSidebar()">☰</button>
+                        <div class="topbar-title">
+                            <h1 id="topbarUser">Chào mừng trở lại</h1>
+                            <p>RAGE:MP style panel • FiveM</p>
+                        </div>
+                    </div>
+                    <div class="topbar-actions">
+                        <a class="chip" href="#" onclick="navigateTo('support'); return false;">🎫 Ticket</a>
+                        <a class="chip" href="#" onclick="navigateTo('community'); return false;">🌐 Cộng đồng</a>
+                        <a class="chip" href="#" onclick="logout(); return false;">🚪 Đăng xuất</a>
+                    </div>
                 </div>
+            </header>
+
+            <section class="hero">
+                <div class="hero-inner">
+                    <div>
+                        <h1>Chào mừng trở lại! 👋</h1>
+                        <p>Quản lý nhân vật, kiểm tra tiến độ và khám phá những tính năng mới của server</p>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="btn" onclick="createCharacter()">+ Tạo nhân vật mới</button>
+                        <button class="btn ghost" onclick="navigateTo('support')">🎧 Hỗ trợ</button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container" id="section-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-value" id="playTime">0h</div>
+                        <div class="stat-label">Giờ chơi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👤</div>
+                        <div class="stat-value" id="characterCount">0</div>
+                        <div class="stat-label">Nhân vật</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-value" id="totalMoney">$0</div>
+                        <div class="stat-label">Tổng tài sản</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-value" id="level">1</div>
+                        <div class="stat-label">Cấp độ</div>
+                    </div>
+                </div>
+
+                <section class="section" id="section-characters">
+                    <div class="section-header">
+                        <h2 class="section-title">Nhân vật của bạn</h2>
+                        <button class="btn" onclick="createCharacter()">+ Tạo nhân vật mới</button>
+                    </div>
+                    <div class="character-grid" id="characterList">
+                        <div class="character-card">
+                            <div class="character-image">👨 <span class="character-badge">Active</span></div>
+                            <div class="character-info">
+                                <h3 class="character-name">John Smith</h3>
+                                <div class="character-details">
+                                    <div class="character-detail"><span>Nghề nghiệp:</span><strong>Cảnh sát</strong></div>
+                                    <div class="character-detail"><span>Tiền mặt:</span><strong>$45,230</strong></div>
+                                    <div class="character-detail"><span>Ngân hàng:</span><strong>$125,500</strong></div>
+                                    <div class="character-detail"><span>Cấp độ:</span><strong>25</strong></div>
+                                </div>
+                                <div class="character-actions">
+                                    <button class="btn btn-small">Chơi</button>
+                                    <button class="btn btn-small btn-secondary">Chỉnh sửa</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="character-card">
+                            <div class="character-image">👩</div>
+                            <div class="character-info">
+                                <h3 class="character-name">Maria Garcia</h3>
+                                <div class="character-details">
+                                    <div class="character-detail"><span>Nghề nghiệp:</span><strong>Bác sĩ</strong></div>
+                                    <div class="character-detail"><span>Tiền mặt:</span><strong>$23,100</strong></div>
+                                    <div class="character-detail"><span>Ngân hàng:</span><strong>$89,400</strong></div>
+                                    <div class="character-detail"><span>Cấp độ:</span><strong>18</strong></div>
+                                </div>
+                                <div class="character-actions">
+                                    <button class="btn btn-small">Chơi</button>
+                                    <button class="btn btn-small btn-secondary">Chỉnh sửa</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-community">
+                    <div class="section-header">
+                        <h2 class="section-title">Nhân vật cộng đồng</h2>
+                        <a class="btn" href="#" onclick="alert('Bạn có thể tích hợp danh sách nhân vật cộng đồng từ API/DB của server.'); return false;">Xem danh sách</a>
+                    </div>
+                    <div class="info-card">
+                        <h3>🌐 Cộng đồng</h3>
+                        <div class="info-item"><span class="info-label">Hoạt động:</span><span class="info-value">Sự kiện / tuyển dụng / shop</span></div>
+                        <div class="info-item"><span class="info-label">Discord:</span><span class="info-value">Đã liên kết</span></div>
+                        <div class="info-item"><span class="info-label">Gợi ý:</span><span class="info-value">Thêm link forum / discord invite tại đây</span></div>
+                    </div>
+                </section>
+
+                <section class="section" id="section-support">
+                    <div class="section-header">
+                        <h2 class="section-title">Hỗ trợ</h2>
+                        <a class="btn" href="#" onclick="alert('Tính năng ticket: bạn có thể kết nối Discord bot / hệ thống ticket của web.'); return false;">Tạo Ticket</a>
+                    </div>
+                    <div class="server-info-grid">
+                        <div class="info-card">
+                            <h3>🎧 Hướng dẫn hỗ trợ</h3>
+                            <div class="info-item"><span class="info-label">Kênh:</span><span class="info-value">Discord / Ticket</span></div>
+                            <div class="info-item"><span class="info-label">Thời gian:</span><span class="info-value">24/7 (tuỳ staff)</span></div>
+                            <div class="info-item"><span class="info-label">Gợi ý:</span><span class="info-value">Cung cấp ID nhân vật + ảnh lỗi</span></div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>⚡ Lối tắt</h3>
+                            <div class="quick-actions">
+                                <a href="#" class="action-btn" onclick="navigateTo('dashboard'); return false;"><span class="action-icon">�</span><span>Dashboard</span></a>
+                                <a href="#" class="action-btn" onclick="navigateTo('characters'); return false;"><span class="action-icon">�</span><span>Nhân vật</span></a>
+                                <a href="#" class="action-btn" onclick="alert('Bạn có thể thay bằng link Discord invite.'); return false;"><span class="action-icon">💬</span><span>Discord</span></a>
+                                <a href="#" class="action-btn" onclick="logout(); return false;"><span class="action-icon">🚪</span><span>Đăng xuất</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </div>
+        </main>
     </div>
 
     <script>
-        // Load user data from localStorage or API
         function loadUserData() {
             const userData = JSON.parse(localStorage.getItem('fivem_user') || '{}');
-            
+
             if (userData.username) {
                 document.getElementById('userName').textContent = userData.username;
                 document.getElementById('userAvatar').textContent = userData.username[0].toUpperCase();
-                
-                // Simulate stats
+                document.getElementById('topbarUser').textContent = `Chào mừng, ${userData.username}`;
+
                 document.getElementById('playTime').textContent = '127h';
                 document.getElementById('characterCount').textContent = '2';
                 document.getElementById('totalMoney').textContent = '$283,230';
                 document.getElementById('level').textContent = '25';
+                const cc = document.getElementById('characterCount').textContent;
+                const navCc = document.getElementById('navCharacterCount');
+                if (navCc) navCc.textContent = cc;
             } else {
-                // Redirect to login if no user data
                 window.location.href = 'index.html';
             }
+        }
+
+        function logout() {
+            localStorage.removeItem('fivem_user');
+            window.location.href = 'index.html';
+        }
+
+        function toggleSidebar() {
+            document.body.classList.toggle('sidebar-open');
+        }
+
+        function navigateTo(section) {
+            const map = {
+                dashboard: 'section-dashboard',
+                characters: 'section-characters',
+                community: 'section-community',
+                support: 'section-support'
+            };
+
+            const id = map[section] || 'section-dashboard';
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            setActiveNav(section);
+            document.body.classList.remove('sidebar-open');
+        }
+
+        function setActiveNav(section) {
+            const nav = document.getElementById('sideNav');
+            if (!nav) return;
+            const links = nav.querySelectorAll('a[data-section]');
+            links.forEach(a => {
+                a.classList.toggle('active', a.getAttribute('data-section') === section);
+            });
         }
 
         function createCharacter() {
             alert('Tính năng tạo nhân vật mới!\n\nBạn có thể tích hợp với hệ thống tạo nhân vật của FiveM server.');
         }
 
-        // Load data when page loads
         loadUserData();
     </script>
 </body>
